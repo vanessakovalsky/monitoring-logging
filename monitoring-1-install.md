@@ -34,12 +34,12 @@ kubectl port-forward --address 0.0.0.0 svc/prometheus-kube-prometheus-prometheus
 
 * Vous accéder alors à une interface ressemblant à celle-ci
 
-![](../img/Console-Prometheus.jpg)
+![](img/Console-Prometheus.jpg)
 
 * Certaines métriques de bases sont déjà surveillées et accessible, entrer dans le champs de recherche le nom `machine_memory_byte`, passez en vue graphique et cliquer sur Exécuter 
 * Vous obtiendrez alors
 
-![](../img/La-chaine-metrique-de-Prometheus.jpg)
+![](img/La-chaine-metrique-de-Prometheus.jpg)
 
 * Les conteneurs sont également déjà monitorés, par exemple utiliser l'expression `rate(container_cpu_usage_seconds_total{container_name= »prometheus »}[1m])`pour afficher le taux d'utilisation du CPU pour le conteneur Prometheus 
 
