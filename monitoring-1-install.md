@@ -41,6 +41,6 @@ kubectl port-forward --address 0.0.0.0 svc/prometheus-kube-prometheus-prometheus
 
 ![](img/La-chaine-metrique-de-Prometheus.jpg)
 
-* Les conteneurs sont également déjà monitorés, par exemple utiliser l'expression `rate(container_cpu_usage_seconds_total{container_name= »prometheus »}[1m])`pour afficher le taux d'utilisation du CPU pour le conteneur Prometheus 
+* Les conteneurs sont également déjà monitorés, par exemple utiliser l'expression `rate(container_cpu_usage_seconds_total{}[1m])`pour afficher le taux d'utilisation du CPU pour le conteneur Prometheus 
 
 * -> Votre installation de Prometheus est fonctionnelle
