@@ -32,6 +32,8 @@ sum(rate(container_cpu_usage_seconds_total{instance=~".*"}[5m])) by (pod) *100
 - Ainsi que l'utilisation de la mémoire
 ```
 sum(container_memory_rss{instance=~".*",name=~".*",name=~".+"}) by (name)
+# Pour avoir la RAM utilisé par pod sur les 5 dernières minutes en bytes
+sum(container_memory_rss{instance=~".*"}) by (pod) - sum(rate(container_memory_usage_bytes{instance=~'.*'}[5m])) by (pod)
 ```
 - Et celle du trafic réseau reçu : 
 ```
