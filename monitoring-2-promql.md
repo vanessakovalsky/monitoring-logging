@@ -27,7 +27,7 @@
 * Nous voulons définir des requêtes pour les élements suivants 
 - Taux de l'utilisation du CPU pour chaque conteneur : 
 ```
-sum(rate(container_cpu_usage_seconds_total{instance=~".*",name=~".*",name=~".+"}[5m])) by (name) *100
+sum(rate(container_cpu_usage_seconds_total{instance=~".*"}[5m])) by (pod) *100
 ```
 - Ainsi que l'utilisation de la mémoire
 ```
