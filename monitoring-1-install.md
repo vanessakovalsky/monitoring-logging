@@ -36,7 +36,7 @@ kubectl port-forward --address 0.0.0.0 svc/prometheus-kube-prometheus-prometheus
 
 ![](img/Console-Prometheus.jpg)
 
-* Certaines métriques de bases sont déjà surveillées et accessible, entrer dans le champs de recherche le nom `machine_memory_byte`, passez en vue graphique et cliquer sur Exécuter 
+* Certaines métriques de bases sont déjà surveillées et accessible, entrer dans le champs de recherche le nom `machine_memory_bytes`, passez en vue graphique et cliquer sur Exécuter 
 * Vous obtiendrez alors
 
 ![](img/La-chaine-metrique-de-Prometheus.jpg)
