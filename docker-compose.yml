@@ -2,15 +2,10 @@ version: '3.7'
 
 services:
     app:
-        build:
-            context: .
-            dockerfile: .docker/Dockerfile
-        image: 'shouts.dev/laravel'
+        image: 'vanessakovalsky/kingoludo-laravel'
         container_name: shouts-laravel-app
         ports:
             - "8090:80"
-        volumes:
-            - ./:/var/www/html
         networks:
             - laravel-shouts
         depends_on:
@@ -74,15 +69,12 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
 
-    promtail:
-      image: grafana/promtail:latest
-      volumes:
-        # custom config will read logs from the containers of
-        # this project
-        - ./loki/promtail-config.yaml:/etc/promtail/config.yml
-        # to read container labels and logs
-        - /var/run/docker.sock:/var/run/docker.sock
-        - /var/lib/docker/containers:/var/lib/docker/containers
+    grafana:
+        image: grafana/grafana-enterprise
+        container_name: grafana
+        restart: unless-stopped
+        ports:
+        - '3000:3000'
 networks:
     laravel-shouts:
         driver: bridge
