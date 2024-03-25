@@ -4,14 +4,14 @@
 
 Ce lab vous permet de : 
 
-* savoir installer prometheus sur un cluster Kubernetes
+* savoir installer prometheus sur un cluster Kubernetes ou via un docker compose
 * Vérifier que Prometheus fonctionne et accéder à son interface web
 * Avoir Helm installé
 
 ## Pré-requis 
 
-* Avoir un cluster Kubernetes installer et kubectl configurer
-* Vous pouvez utilisez Minikube pour cela
+* Avoir un cluster Kubernetes installer et kubectl configuré
+* ou : avoir docker et docker compose installé et fonctionnel
 
 ## Installation de Prometheus
 
