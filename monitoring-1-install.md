@@ -15,6 +15,8 @@ Ce lab vous permet de :
 
 ## Installation de Prometheus
 
+### Avec Kubernetes
+
 * Commencer par récupérer le chart helm, créer un namespace et installer le helm chart
 ```
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -25,12 +27,27 @@ helm install prometheus prometheus-community/kube-prometheus-stack --namespace m
 ```
 kubectl port-forward --address 0.0.0.0 svc/prometheus-kube-prometheus-prometheus -n monitoring 9090 
 ```
-* /!\ Laisser tourner pour accéder à Prometheus :) 
+* /!\ Laisser tourner pour accéder à Prometheus :)
+
+### Avec docker compose
+
+* Récupérer dans le dépôt le fichier docker-compose.yml
+* Récupérer à cette adresse le fichier de configuration prometheus : https://github.com/vanessakovalsky/grafana-training/blob/main/infra/prometheus.yml
+* Mettre les deux fichiers dans le même dossier et ouvrir une invite de commande ou un terminal dans ce dossier, puis faire la commande :
+```
+docker compose up -d
+```
+* Les conteneurs vont se lancer, pour vérifier que tout est ok, vous pouvez utilisez la commande :
+```
+docker compose ps 
+```
+* Les conteneurs doivent alors tous être au status `up`
 
 ## Accéder à Prometheus
 
 * Prometheus fournit une interface web exposer par defaut sur le port 9090
 * Avec minikube utiliser localhost:9090 (ou récupérer l'URL correct avec minikube service nomduservice --url )
+* Avec docker compose utiliser localhost:8090 
 
 * Vous accéder alors à une interface ressemblant à celle-ci
 
