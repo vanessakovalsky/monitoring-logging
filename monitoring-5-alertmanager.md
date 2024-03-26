@@ -7,7 +7,56 @@
 
 ## Pré-requis
 
-- Avoir Prometheus et AlertMananer configuré et installé
+- Avoir Prometheus configuré et installé
+
+## Installation et configuration de AlertManager
+
+* Ajouter dans le fichier docker-compose.yml le service alertmanager suivants :
+```
+alertmanager:
+        image: prom/alertmanager:latest
+        restart: unless-stopped
+        ports:
+        - "9093:9093"
+        volumes:
+        - "./alertmanager:/config"
+        - alertmanager-data:/data
+        command: --config.file=/config/alertmanager.yml --log.level=debug
+```
+* Ajouter dans la partie volumes du docker-compose.yml la ligne suivantes :
+```
+    alertmanager-data: {}
+```
+* Enfin dans le même fichier, dans le service prometheus remplacer la ligne de partage du fichier my-recording-rules.yml par la ligne suivante
+```
+      - ./rules:/etc/prometheus/rules:ro
+```
+* Créer un dossier rules et déplacer votre fichiers my-recording-rules.yml dans ce dossier
+* Créer à la racine un fichier alertmanager.yml (qui va contenir la configuration d'alertmanager).
+* Ajouter dans ce fichier les lignes suivantes :
+```
+route:
+  receiver: 'mail'
+  repeat_interval: 4h
+  group_by: [ alertname ]
+
+
+receivers:
+  - name: 'mail'
+    email_configs:
+      - smarthost: 'smtp.gmail.com:465'
+        auth_username: 'your_mail@gmail.com'
+        auth_password: ""
+        from: 'your_mail@gmail.com'
+        to: 'some_mail@gmail.com'
+```
+* Ensuite il nous reste à rédémarrer notre environnement pour prendre en compte les modifications
+```
+docker compose down
+docker compose up -d
+```
+* Une fois les conteneurs démarré, vous devriez accéder à l'interface d'alertmanager sur l'adresse : http://localhost:9093
+
 
 ## Définition des alertes
 
