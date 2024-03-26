@@ -145,7 +145,7 @@ docker compose exec -it mysql /bin/bash
 mysql -u root -p
 (entrer le mot de passe préciser dans le docker compose)
 CREATE USER 'exporter'@'localhost' IDENTIFIED BY 'exporter' WITH MAX_USER_CONNECTIONS 3;
-GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'localhost';
+GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'%';
 exit
 exit
 docker compose up -d
