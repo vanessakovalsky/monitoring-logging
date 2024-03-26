@@ -25,15 +25,13 @@ rule_files:
 groups:
 - name: my-recording-rules
   rules:
-  - record: path:http_requests:rate5m # The new output metric name.
-    expr: sum without(instance) (rate(http_requests_total{job="my-job"}[5m]))
   - record: instance_mode:node_cpu:rate1m # The new output metric name.
     expr: sum without(cpu) (rate(node_cpu_seconds_total{job="node"}[1m]))
     labels:
       my_label: my_value
 ```
 * Nous avons ajouter deux règles d'enregistrement
-* Vérifier dans Prometheus que vos mettriques `path:http_requests:rate5m` et `instance_mode:node_cpu:rate1m` sont disponibles.
+* Vérifier dans Prometheus que vos metriques `instance_mode:node_cpu:rate1m` sont disponibles.
 
 ## Pour aller plus loin
 
