@@ -17,7 +17,8 @@ helm install prometheus prometheus-community/kube-prometheus-stack --namespace m
 ```
 
 ### Avec docker compose
-
+* Dans le dossier ou se trouve votre fichier docker-compose.yml, créer un dossier mysql
+* Ajouter dans ce dossier le fichier my.cnf qui se trouve dans le dossier mysql du dépôt
 * Ouvrir le fichier docker-compose.yml et remplacer son contenu par le suivant :
 ```
 version: '3.7'
@@ -46,6 +47,7 @@ services:
             MARIADB_USER: laravel
         volumes:
             - dbdata:/var/lib/mysql
+            - mysql:/etc/mysql/conf.d
         networks:
             - laravel-shouts
     prometheus:
@@ -144,7 +146,7 @@ scrape_configs:
 docker compose exec -it mysql /bin/bash
 mysql -u root -p
 (entrer le mot de passe préciser dans le docker compose)
-CREATE USER 'exporter'@'localhost' IDENTIFIED BY 'exporter' WITH MAX_USER_CONNECTIONS 3;
+CREATE USER 'exporter'@'%' IDENTIFIED BY 'exporter' WITH MAX_USER_CONNECTIONS 3;
 GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'%';
 exit
 exit
