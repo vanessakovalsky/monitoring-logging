@@ -97,7 +97,9 @@ groups:
 ```
 * Une fois le fichier enregistrer on peut vérifier la syntaxe de celui-ci avec la commande :
 ```
+docker compose exec -it prometheus /bin/sh
 promtool check rules /etc/prometheus/rules/alerts.yml
+exit
 ```
 
 ## Vérifier le déclenchement des alertes
