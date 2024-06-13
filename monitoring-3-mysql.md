@@ -172,7 +172,7 @@ docker compose up -d
 * Pour accéder à toutes les métriques disponibles dans mysql, il est nécessaire de créer un utilisateur spécifique sur la base de donnée qui sera utilisé par l'exporter, voici les commandes :
 ```
 docker compose exec -it mysql /bin/bash
-mysql -u root -p
+mariadb -u root -p
 (entrer le mot de passe préciser dans le docker compose)
 CREATE USER 'exporter'@'%' IDENTIFIED BY 'exporter' WITH MAX_USER_CONNECTIONS 3;
 GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'%';
