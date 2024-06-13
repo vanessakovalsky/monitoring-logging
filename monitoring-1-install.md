@@ -47,7 +47,7 @@ docker compose ps
 
 * Prometheus fournit une interface web exposer par defaut sur le port 9090
 * Avec minikube utiliser localhost:9090 (ou récupérer l'URL correct avec minikube service nomduservice --url )
-* Avec docker compose utiliser localhost:8091 
+* Avec docker compose utiliser localhost:9091 
 
 * Vous accéder alors à une interface ressemblant à celle-ci
 
