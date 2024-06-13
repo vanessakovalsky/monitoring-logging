@@ -55,7 +55,7 @@ services:
       container_name: prometheus
       user: root
       ports:
-      - 9090:9090
+      - 9091:9090
       command:
       - --config.file=/etc/prometheus/prometheus.yml
       - --storage.tsdb.path=/prometheus'
@@ -169,6 +169,18 @@ docker compose up -d
 
 * Accéder à prometheus et dans les targets vous devriez voir mysql apparaître.
 
+* Pour accéder à toutes les métriques disponibles dans mysql, il est nécessaire de créer un utilisateur spécifique sur la base de donnée qui sera utilisé par l'exporter, voici les commandes :
+```
+docker compose exec -it mysql /bin/bash
+mysql -u root -p
+(entrer le mot de passe préciser dans le docker compose)
+CREATE USER 'exporter'@'%' IDENTIFIED BY 'exporter' WITH MAX_USER_CONNECTIONS 3;
+GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'%';
+exit
+exit
+docker compose up -d
+docker compose restart prometheus
+```
 ## Exploitation des métriques de l'exporter
 
 * Nous allons définir quelques requêtes à partir des métriques disponibles
