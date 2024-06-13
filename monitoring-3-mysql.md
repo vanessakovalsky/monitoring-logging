@@ -4,7 +4,7 @@
 
 ### Sur Kubernetes
 
-- Récuper les deux fichier yaml dans le dossier mysql 
+- Récuper les deux fichier  dans le dossier mysql 
 - Créer le secret et deployer les pods
 ```
 kubectl create secret generic mysecret --from-literal=ROOT_PASSWORD=demo -n monitoring
@@ -47,7 +47,7 @@ services:
             MARIADB_USER: laravel
         volumes:
             - dbdata:/var/lib/mysql
-            - mysql:/etc/mysql/conf.d
+            - ./mysql:/etc/mysql/conf.d
         networks:
             - laravel-shouts
     prometheus:
@@ -64,9 +64,12 @@ services:
       - --web.enable-lifecycle
       volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./rules:/etc/prometheus/rules:ro
       - prometheus_data:/prometheus
       depends_on:
       - cadvisor
+      networks:
+        - laravel-shouts
     node-exporter:
       image: prom/node-exporter:latest
       container_name: node-exporter
@@ -82,6 +85,8 @@ services:
         - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
       expose:
         - 9100
+      networks:
+        - laravel-shouts
     cadvisor:
       image: gcr.io/cadvisor/cadvisor:latest
       container_name: cadvisor
@@ -92,27 +97,41 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-
+      networks:
+        - laravel-shouts
     grafana:
         image: grafana/grafana-enterprise
         container_name: grafana
         restart: unless-stopped
         ports:
         - '3000:3000'
-    
+        networks:
+            - laravel-shouts
     mysql-exporter:
         image: quay.io/prometheus/mysqld-exporter
         container_name: mysqld-exporter
         command:
             - "--mysqld.username=exporter:exporter"
             - "--mysqld.address=mysql:3306"
+            - "--collect.global_status"
+            - "--collect.info_schema.innodb_metrics"
         ports:
         - 9104:9104
         links:
         - mysql
         depends_on:
         - mysql
-
+        networks:
+            - laravel-shouts
+    alertmanager:
+        image: prom/alertmanager:latest
+        restart: unless-stopped
+        ports:
+        - "9093:9093"
+        volumes:
+        - "./alertmanager:/config"
+        - alertmanager-data:/data
+        command: --config.file=/config/alertmanager.yml --log.level=debug
 networks:
     laravel-shouts:
         driver: bridge
@@ -120,6 +139,7 @@ networks:
 volumes:
     dbdata: {}
     prometheus_data: {}
+    alertmanager-data: {}
 ```
 * Enregistrer le fichier et fermer le
 * Remplacer le contenu du fichier prometheus.yml par le suivant :
@@ -141,17 +161,10 @@ scrape_configs:
       - targets:
         - mysql-exporter:9104
 ```
-* Ensuite on va ajouter un utilisateur sur la base de données pour l'exporter, pour cela ouvrir un terminal et faire les commandes suivantes :
+* Redemmarrer les conteneurs (depuis un terminal et en étant dans votre dossier avec tous vos fichiers) :
+
 ```
-docker compose exec -it mysql /bin/bash
-mysql -u root -p
-(entrer le mot de passe préciser dans le docker compose)
-CREATE USER 'exporter'@'%' IDENTIFIED BY 'exporter' WITH MAX_USER_CONNECTIONS 3;
-GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'%';
-exit
-exit
-docker compose up -d
-docker compose restart prometheus
+docker compose up -d 
 ```
 
 * Accéder à prometheus et dans les targets vous devriez voir mysql apparaître.
