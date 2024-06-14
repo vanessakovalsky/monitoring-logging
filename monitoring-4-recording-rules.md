@@ -25,7 +25,7 @@ rule_files:
 groups:
 - name: my-recording-rules
   rules:
-  - record: instance_mode:node_cpu:rate1m # The new output metric name.
+  - record: instance_mode:node_cpu:rate5m # The new output metric name.
     expr: sum without(cpu) (rate(node_cpu_seconds_total{job="node"}[5m]))
     labels:
       my_label: my_value
