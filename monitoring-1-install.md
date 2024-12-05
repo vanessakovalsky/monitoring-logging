@@ -31,7 +31,7 @@ kubectl port-forward --address 0.0.0.0 svc/prometheus-kube-prometheus-prometheus
 
 ### Avec docker compose
 
-* Récupérer dans le dépôt le fichier docker-compose.yml
+* Récupérer dans le dépôt le fichier [docker-compose.yml](docker-compose.yml)
 * Récupérer à cette adresse le fichier de configuration prometheus : https://github.com/vanessakovalsky/grafana-training/blob/main/infra/prometheus.yml
 * Mettre les deux fichiers dans le même dossier et ouvrir une invite de commande ou un terminal dans ce dossier, puis faire la commande :
 ```
