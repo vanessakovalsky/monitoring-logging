@@ -17,10 +17,10 @@
 # Rule files specifies a list of globs. Rules and alerts are read from
 # all matching files.
 rule_files:
-  - ./my-recording-rules.yml
+  - ./rules/my-recording-rules.yml
 ```
 * Enregistrer le fichier de configuration et fermer le
-* Créer un fichier my-recording-ryles.yml et ajouter le contenu suivant
+* Créer un fichier my-recording-ryles.yml dans le dossier rules et ajouter le contenu suivant
 ```
 groups:
 - name: my-recording-rules
