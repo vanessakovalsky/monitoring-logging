@@ -11,27 +11,7 @@
 
 ## Installation et configuration de AlertManager
 
-* Ajouter dans le fichier docker-compose.yml le service alertmanager suivants :
-```
-alertmanager:
-        image: prom/alertmanager:latest
-        restart: unless-stopped
-        ports:
-        - "9093:9093"
-        volumes:
-        - "./alertmanager:/config"
-        - alertmanager-data:/data
-        command: --config.file=/config/alertmanager.yml --log.level=debug
-```
-* Ajouter dans la partie volumes du docker-compose.yml la ligne suivantes :
-```
-    alertmanager-data: {}
-```
-* Enfin dans le même fichier, dans le service prometheus remplacer la ligne de partage du fichier my-recording-rules.yml par la ligne suivante
-```
-      - ./rules:/etc/prometheus/rules:ro
-```
-* Créer un dossier rules et déplacer votre fichiers my-recording-rules.yml dans ce dossier
+* Alertmanager a été installé lors de l'exercice 3, en ajoutant le conteneur, pour l'instant il ne démarre pas car il lui manque son fichier de configuration, que nous allons maintenant créer.
 * Créer à la racine un fichier alertmanager.yml (qui va contenir la configuration d'alertmanager).
 * Ajouter dans ce fichier les lignes suivantes :
 ```
