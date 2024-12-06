@@ -17,8 +17,7 @@ helm install prometheus prometheus-community/kube-prometheus-stack --namespace m
 ```
 
 ### Avec docker compose
-* Dans le dossier ou se trouve votre fichier docker-compose.yml, créer un dossier mysql
-* Ajouter dans ce dossier le fichier my.cnf qui se trouve dans le dossier mysql du dépôt
+* Dans le dossier ou se trouve votre fichier docker-compose.yml,
 * Ouvrir le fichier docker-compose.yml et remplacer son contenu par le suivant :
 ```
 version: '3.7'
