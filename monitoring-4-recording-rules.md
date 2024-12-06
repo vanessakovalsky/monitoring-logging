@@ -12,7 +12,7 @@
 
 ## Mise en place des règles
 
-* Depuis le fichier de configuration principal de prometheus, modifier la ligne contenant `rules_files` pour lui indiquer le chemin du fichier de règles
+* Depuis le fichier de configuration principal de prometheus (prometheus.yml), ajouter la ligne contenant `rules_files` pour lui indiquer le chemin du fichier de règles
 ```
 # Rule files specifies a list of globs. Rules and alerts are read from
 # all matching files.
