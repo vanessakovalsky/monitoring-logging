@@ -30,12 +30,11 @@ receivers:
         from: 'your_mail@gmail.com'
         to: 'some_mail@gmail.com'
 ```
-* Ensuite il nous reste à rédémarrer notre environnement pour prendre en compte les modifications
+* Ensuite il nous reste à rédémarrer notre conteneur alertmanager
 ```
-docker compose down
-docker compose up -d
+docker compose restart alertmanager
 ```
-* Une fois les conteneurs démarré, vous devriez accéder à l'interface d'alertmanager sur l'adresse : http://localhost:9093
+* Une fois le conteneurs démarré, vous devriez accéder à l'interface d'alertmanager sur l'adresse : http://localhost:9093
 
 
 ## Définition des alertes
