@@ -12,7 +12,7 @@
 ## Installation et configuration de AlertManager
 
 * Alertmanager a été installé lors de l'exercice 3, en ajoutant le conteneur, pour l'instant il ne démarre pas car il lui manque son fichier de configuration, que nous allons maintenant créer.
-* Créer à la racine un fichier alertmanager.yml (qui va contenir la configuration d'alertmanager).
+* Créer dans le dossier alertmanager un fichier alertmanager.yml (qui va contenir la configuration d'alertmanager).
 * Ajouter dans ce fichier les lignes suivantes :
 ```
 route:
