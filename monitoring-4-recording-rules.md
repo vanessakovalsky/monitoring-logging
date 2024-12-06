@@ -31,14 +31,10 @@ groups:
       my_label: my_value
 ```
 * Nous avons ajouter une règle d'enregistrement
-* Ajouter dans le fichier doker-compose.yml dans la section volumes du service prometheus
+
+* Redemarrer prometheus
 ```
-- ./my-recording-rules.yml:/etc/prometheus/my-recording-rules.yml:ro
-```
-* Redemarrer docker
-```
-docker compose down
-docker compose up -d 
+docker compose restart prometheus
 ```
 * Vérifier dans Prometheus que vos metriques `instance_mode:node_cpu:rate5m` sont disponibles.
 
